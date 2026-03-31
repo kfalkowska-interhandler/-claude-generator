@@ -1,6 +1,3 @@
-Tak — poniżej masz gotowy cały plik generate.js do skopiowania 1:1. Korzysta z oficjalnego SDK Anthropic, wysyła prompt przez client.messages.create(...) i zapisuje wynik do pliku app.html przez fs.writeFileSync(...).
-
-javascript
 const Anthropic = require('@anthropic-ai/sdk');
 const fs = require('fs');
 
