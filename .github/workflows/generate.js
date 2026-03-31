@@ -5,6 +5,14 @@ const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
+function cleanClaudeOutput(text) {
+  return text
+    .replace(/^```html\s*/i, '')
+    .replace(/^```\s*/i, '')
+    .replace(/\s*```$/i, '')
+    .trim();
+}
+
 async function run() {
   const prompt = `Jako Claude Coder, wygeneruj kompletny plik HTML z osadzonym CSS i JavaScript.
 
@@ -24,9 +32,8 @@ Wymagania:
 - bez zewnętrznych bibliotek.
 
 Zwróć wyłącznie surowy kod HTML.
-Nie używaj znaczników markdown.
-Nie dodawaj bloków typu \`\`\`html ani \`\`\`.
-Nie dodawaj żadnych wyjaśnień przed ani po kodzie.`;
+Nie używaj markdown.
+Nie dodawaj bloków typu code fence.`;
 
   const response = await client.messages.create({
     model: 'claude-sonnet-4-20250514',
@@ -39,12 +46,14 @@ Nie dodawaj żadnych wyjaśnień przed ani po kodzie.`;
     ]
   });
 
-  const text = response.content
+  const rawText = response.content
     .filter(item => item.type === 'text')
     .map(item => item.text)
     .join('\n');
 
-  fs.writeFileSync('index.html', text, 'utf8');
+  const cleanText = cleanClaudeOutput(rawText);
+
+  fs.writeFileSync('index.html', cleanText, 'utf8');
   console.log('Plik index.html został wygenerowany.');
 }
 
