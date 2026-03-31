@@ -11,19 +11,20 @@ function extractPureHtml(text) {
   let cleaned = text
     .replace(/```html/gi, '')
     .replace(/```/g, '')
+    .replace(/^\s*html\s*/i, '')
     .trim();
 
-  const doctypeIndex = cleaned.search(/<!DOCTYPE html>/i);
-  if (doctypeIndex !== -1) {
-    cleaned = cleaned.slice(doctypeIndex);
-  } else {
-    const htmlIndex = cleaned.search(/<html[\s>]/i);
-    if (htmlIndex !== -1) {
-      cleaned = cleaned.slice(htmlIndex);
-    }
+  const doctypeMatch = cleaned.match(/<!DOCTYPE html>[\s\S]*$/i);
+  if (doctypeMatch) {
+    return doctypeMatch[0].trim();
   }
 
-  return cleaned.trim();
+  const htmlMatch = cleaned.match(/<html[\s\S]*$/i);
+  if (htmlMatch) {
+    return htmlMatch[0].trim();
+  }
+
+  return cleaned;
 }
 
 function injectSafetyCleaner(html) {
