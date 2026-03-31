@@ -5,12 +5,24 @@ const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-function cleanClaudeOutput(text) {
-  return text
+function extractPureHtml(text) {
+  const cleaned = text
     .replace(/^```html\s*/i, '')
     .replace(/^```\s*/i, '')
     .replace(/\s*```$/i, '')
     .trim();
+
+  const doctypeIndex = cleaned.search(/<!DOCTYPE html>/i);
+  if (doctypeIndex !== -1) {
+    return cleaned.slice(doctypeIndex).trim();
+  }
+
+  const htmlIndex = cleaned.search(/<html[\s>]/i);
+  if (htmlIndex !== -1) {
+    return cleaned.slice(htmlIndex).trim();
+  }
+
+  return cleaned;
 }
 
 async function run() {
@@ -33,7 +45,9 @@ Wymagania:
 
 Zwróć wyłącznie surowy kod HTML.
 Nie używaj markdown.
-Nie dodawaj bloków typu code fence.`;
+Nie dodawaj backticks.
+Nie dodawaj żadnych wyjaśnień przed ani po kodzie.
+Kod ma zaczynać się od <!DOCTYPE html>.`;
 
   const response = await client.messages.create({
     model: 'claude-sonnet-4-20250514',
@@ -51,9 +65,9 @@ Nie dodawaj bloków typu code fence.`;
     .map(item => item.text)
     .join('\n');
 
-  const cleanText = cleanClaudeOutput(rawText);
+  const htmlOnly = extractPureHtml(rawText);
 
-  fs.writeFileSync('index.html', cleanText, 'utf8');
+  fs.writeFileSync('index.html', htmlOnly, 'utf8');
   console.log('Plik index.html został wygenerowany.');
 }
 
