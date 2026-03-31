@@ -11,5 +11,14 @@
   "license": "ISC",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kfalkowska-interhandler/-claude-generator.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kfalkowska-interhandler/-claude-generator/issues"
+  },
+  "homepage": "https://github.com/kfalkowska-interhandler/-claude-generator#readme"
 }
