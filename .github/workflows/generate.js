@@ -7,7 +7,9 @@ const client = new Anthropic({
 
 async function run() {
   const prompt = `Jako Claude Coder, wygeneruj kompletny plik HTML z osadzonym CSS i JavaScript.
+
 Aplikacja: menedżer zadań.
+
 Wymagania:
 - nowoczesny, czysty wygląd,
 - responsywny layout,
@@ -39,8 +41,8 @@ Zwróć wyłącznie gotowy kod HTML, bez żadnych wyjaśnień przed i po.`;
     .map(item => item.text)
     .join('\n');
 
-  fs.writeFileSync('app.html', text, 'utf8');
-  console.log('Plik app.html został wygenerowany.');
+  fs.writeFileSync('index.html', text, 'utf8');
+  console.log('Plik index.html został wygenerowany.');
 }
 
 run().catch(err => {
