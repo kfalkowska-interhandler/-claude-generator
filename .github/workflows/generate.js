@@ -23,7 +23,10 @@ Wymagania:
 - gotowe do uruchomienia w przeglądarce,
 - bez zewnętrznych bibliotek.
 
-Zwróć wyłącznie gotowy kod HTML, bez żadnych wyjaśnień przed i po.`;
+Zwróć wyłącznie surowy kod HTML.
+Nie używaj znaczników markdown.
+Nie dodawaj bloków typu \`\`\`html ani \`\`\`.
+Nie dodawaj żadnych wyjaśnień przed ani po kodzie.`;
 
   const response = await client.messages.create({
     model: 'claude-sonnet-4-20250514',
