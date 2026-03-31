@@ -6,52 +6,86 @@ const client = new Anthropic({
 });
 
 function extractPureHtml(text) {
-  const cleaned = text
-    .replace(/^```html\s*/i, '')
-    .replace(/^```\s*/i, '')
-    .replace(/\s*```$/i, '')
+  if (!text) return '';
+
+  let cleaned = text
+    .replace(/```html/gi, '')
+    .replace(/```/g, '')
     .trim();
 
   const doctypeIndex = cleaned.search(/<!DOCTYPE html>/i);
   if (doctypeIndex !== -1) {
-    return cleaned.slice(doctypeIndex).trim();
+    cleaned = cleaned.slice(doctypeIndex);
+  } else {
+    const htmlIndex = cleaned.search(/<html[\s>]/i);
+    if (htmlIndex !== -1) {
+      cleaned = cleaned.slice(htmlIndex);
+    }
   }
 
-  const htmlIndex = cleaned.search(/<html[\s>]/i);
-  if (htmlIndex !== -1) {
-    return cleaned.slice(htmlIndex).trim();
+  return cleaned.trim();
+}
+
+function injectSafetyCleaner(html) {
+  const cleanerScript = `
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const nodes = Array.from(document.body.childNodes);
+
+  for (const node of nodes) {
+    if (
+      node.nodeType === Node.TEXT_NODE &&
+      node.textContent &&
+      (
+        node.textContent.trim().startsWith('\`\`\`html') ||
+        node.textContent.trim() === '\`\`\`' ||
+        node.textContent.trim() === 'html'
+      )
+    ) {
+      node.remove();
+    }
+  }
+});
+</script>
+`;
+
+  if (html.includes('</body>')) {
+    return html.replace('</body>', `${cleanerScript}\n</body>`);
   }
 
-  return cleaned;
+  return html + cleanerScript;
 }
 
 async function run() {
-  const prompt = `Jako Claude Coder, wygeneruj kompletny plik HTML z osadzonym CSS i JavaScript.
+  const prompt = `
+Wygeneruj kompletny, gotowy do uruchomienia plik HTML.
 
-Aplikacja: menedżer zadań.
+Temat: Menedżer zadań po polsku.
 
 Wymagania:
-- nowoczesny, czysty wygląd,
+- nowoczesny wygląd,
 - responsywny layout,
 - dodawanie zadań,
-- edycja zadań,
 - usuwanie zadań,
 - oznaczanie jako wykonane,
-- wyszukiwarka,
+- wyszukiwanie,
 - sortowanie,
-- localStorage,
-- gotowe do uruchomienia w przeglądarce,
+- zapisywanie danych w localStorage,
+- osadzony CSS i JavaScript w jednym pliku,
 - bez zewnętrznych bibliotek.
 
-Zwróć wyłącznie surowy kod HTML.
-Nie używaj markdown.
-Nie dodawaj backticks.
-Nie dodawaj żadnych wyjaśnień przed ani po kodzie.
-Kod ma zaczynać się od <!DOCTYPE html>.`;
+Bardzo ważne zasady odpowiedzi:
+- zwróć wyłącznie czysty HTML,
+- nie używaj markdown,
+- nie dodawaj \`\`\`html ani \`\`\`,
+- nie dodawaj żadnego komentarza przed kodem,
+- nie dodawaj żadnego komentarza po kodzie,
+- odpowiedź ma zaczynać się dokładnie od <!DOCTYPE html>.
+`;
 
   const response = await client.messages.create({
     model: 'claude-sonnet-4-20250514',
-    max_tokens: 4000,
+    max_tokens: 5000,
     messages: [
       {
         role: 'user',
@@ -65,13 +99,14 @@ Kod ma zaczynać się od <!DOCTYPE html>.`;
     .map(item => item.text)
     .join('\n');
 
-  const htmlOnly = extractPureHtml(rawText);
+  let html = extractPureHtml(rawText);
+  html = injectSafetyCleaner(html);
 
-  fs.writeFileSync('index.html', htmlOnly, 'utf8');
-  console.log('Plik index.html został wygenerowany.');
+  fs.writeFileSync('index.html', html, 'utf8');
+  console.log('Plik index.html został wygenerowany poprawnie.');
 }
 
 run().catch(err => {
-  console.error('Błąd:', err);
+  console.error('Błąd generowania:', err);
   process.exit(1);
 });
