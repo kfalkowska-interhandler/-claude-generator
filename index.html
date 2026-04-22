@@ -22,8 +22,8 @@
             max-width: 800px;
             margin: 0 auto;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
         }
 
@@ -44,40 +44,43 @@
             font-size: 1.1rem;
         }
 
-        .main-content {
+        .controls {
             padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
         }
 
         .task-form {
             display: flex;
             gap: 10px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
+            margin-bottom: 20px;
         }
 
         .task-input {
             flex: 1;
-            min-width: 250px;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
             border-radius: 10px;
             font-size: 16px;
+            outline: none;
             transition: border-color 0.3s;
         }
 
         .task-input:focus {
-            outline: none;
             border-color: #667eea;
         }
 
         .btn {
-            padding: 15px 25px;
+            padding: 12px 24px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
             transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
 
         .btn-primary {
@@ -87,52 +90,142 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
 
-        .controls {
+        .search-sort {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 10px;
             flex-wrap: wrap;
-            align-items: center;
         }
 
         .search-input {
-            padding: 10px 15px;
-            border: 2px solid #e0e0e0;
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 16px;
+            border: 2px solid #e9ecef;
             border-radius: 8px;
             font-size: 14px;
-            min-width: 200px;
+            outline: none;
         }
 
         .search-input:focus {
-            outline: none;
             border-color: #667eea;
         }
 
         .sort-select {
-            padding: 10px 15px;
-            border: 2px solid #e0e0e0;
+            padding: 10px 16px;
+            border: 2px solid #e9ecef;
             border-radius: 8px;
             font-size: 14px;
-            background: white;
+            outline: none;
             cursor: pointer;
         }
 
-        .task-stats {
+        .tasks-container {
+            padding: 30px;
+            min-height: 200px;
+        }
+
+        .task-item {
+            background: white;
+            border: 2px solid #f1f3f4;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
             display: flex;
-            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .task-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .task-item.completed {
+            background: #f8f9fa;
+            border-color: #28a745;
+        }
+
+        .task-content {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            gap: 15px;
+        }
+
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #28a745;
+        }
+
+        .task-text {
+            flex: 1;
+            font-size: 16px;
+            line-height: 1.5;
+            transition: all 0.3s;
+        }
+
+        .task-text.completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .task-date {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
             margin-bottom: 20px;
-            flex-wrap: wrap;
+            opacity: 0.5;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: #f8f9fa;
+            padding: 20px;
+            border-top: 1px solid #e9ecef;
         }
 
         .stat-item {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            border-radius: 10px;
             text-align: center;
-            min-width: 120px;
         }
 
         .stat-number {
@@ -143,144 +236,55 @@
 
         .stat-label {
             font-size: 0.9rem;
-            color: #666;
+            color: #6c757d;
             margin-top: 5px;
         }
 
-        .tasks-list {
-            margin-top: 20px;
-        }
-
-        .task-item {
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.3s;
-        }
-
-        .task-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .task-item.completed {
-            opacity: 0.7;
-            background: #e8f5e8;
-            border-color: #4caf50;
-        }
-
-        .task-checkbox {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        .task-text {
-            flex: 1;
-            font-size: 16px;
-            color: #333;
-        }
-
-        .task-text.completed {
-            text-decoration: line-through;
-            color: #888;
-        }
-
-        .task-date {
-            font-size: 12px;
-            color: #888;
-            margin-right: 10px;
-        }
-
-        .btn-delete {
-            background: #ff4757;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        .btn-delete:hover {
-            background: #ff3742;
-            transform: translateY(-1px);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        }
-
-        .empty-state img {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
+            .container {
+                margin: 10px;
+                border-radius: 15px;
             }
 
             .header h1 {
                 font-size: 2rem;
             }
 
-            .main-content {
-                padding: 20px;
-            }
-
             .task-form {
                 flex-direction: column;
             }
 
-            .task-input {
-                min-width: auto;
-            }
-
-            .controls {
+            .search-sort {
                 flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-input {
-                min-width: auto;
             }
 
             .task-item {
-                padding: 15px;
-                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
             }
 
-            .task-stats {
-                justify-content: center;
+            .task-actions {
+                align-self: flex-end;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 15px;
             }
         }
 
         @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
             .header {
                 padding: 20px;
             }
 
-            .header h1 {
-                font-size: 1.8rem;
-            }
-
-            .main-content {
-                padding: 15px;
-            }
-
-            .stat-item {
-                min-width: 100px;
+            .controls, .tasks-container {
+                padding: 20px;
             }
         }
     </style>
@@ -288,47 +292,48 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📋 Menedżer Zadań</h1>
-            <p>Organizuj swoje zadania w prosty sposób</p>
+            <h1>Menedżer Zadań</h1>
+            <p>Organizuj swoje zadania efektywnie</p>
         </div>
 
-        <div class="main-content">
+        <div class="controls">
             <form class="task-form" id="taskForm">
-                <input type="text" class="task-input" id="taskInput" placeholder="Wpisz nowe zadanie..." required>
-                <button type="submit" class="btn btn-primary">Dodaj zadanie</button>
+                <input type="text" class="task-input" id="taskInput" placeholder="Dodaj nowe zadanie..." required>
+                <button type="submit" class="btn btn-primary">Dodaj</button>
             </form>
 
-            <div class="controls">
-                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Szukaj zadań...">
+            <div class="search-sort">
+                <input type="text" class="search-input" id="searchInput" placeholder="Szukaj zadań...">
                 <select class="sort-select" id="sortSelect">
                     <option value="newest">Najnowsze</option>
                     <option value="oldest">Najstarsze</option>
                     <option value="alphabetical">Alfabetycznie</option>
-                    <option value="completed">Wykonane na końcu</option>
+                    <option value="completed">Wykonane</option>
+                    <option value="pending">Oczekujące</option>
                 </select>
             </div>
+        </div>
 
-            <div class="task-stats">
-                <div class="stat-item">
-                    <div class="stat-number" id="totalTasks">0</div>
-                    <div class="stat-label">Wszystkie</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="completedTasks">0</div>
-                    <div class="stat-label">Wykonane</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="pendingTasks">0</div>
-                    <div class="stat-label">Do zrobienia</div>
-                </div>
+        <div class="tasks-container" id="tasksContainer">
+            <div class="empty-state" id="emptyState">
+                <div class="empty-state-icon">📝</div>
+                <h3>Brak zadań</h3>
+                <p>Dodaj swoje pierwsze zadanie, aby rozpocząć!</p>
             </div>
+        </div>
 
-            <div class="tasks-list" id="tasksList">
-                <div class="empty-state" id="emptyState">
-                    <div style="font-size: 4rem; margin-bottom: 20px;">📝</div>
-                    <h3>Brak zadań</h3>
-                    <p>Dodaj swoje pierwsze zadanie, aby rozpocząć!</p>
-                </div>
+        <div class="stats" id="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalTasks">0</div>
+                <div class="stat-label">Wszystkie</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="completedTasks">0</div>
+                <div class="stat-label">Wykonane</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="pendingTasks">0</div>
+                <div class="stat-label">Oczekujące</div>
             </div>
         </div>
     </div>
@@ -337,59 +342,58 @@
         class TaskManager {
             constructor() {
                 this.tasks = this.loadTasks();
-                this.filteredTasks = [...this.tasks];
-                this.initializeElements();
-                this.bindEvents();
-                this.render();
+                this.init();
             }
 
-            initializeElements() {
-                this.taskForm = document.getElementById('taskForm');
-                this.taskInput = document.getElementById('taskInput');
-                this.searchInput = document.getElementById('searchInput');
-                this.sortSelect = document.getElementById('sortSelect');
-                this.tasksList = document.getElementById('tasksList');
-                this.emptyState = document.getElementById('emptyState');
-                this.totalTasksElement = document.getElementById('totalTasks');
-                this.completedTasksElement = document.getElementById('completedTasks');
-                this.pendingTasksElement = document.getElementById('pendingTasks');
+            init() {
+                this.bindEvents();
+                this.renderTasks();
+                this.updateStats();
             }
 
             bindEvents() {
-                this.taskForm.addEventListener('submit', (e) => this.handleSubmit(e));
-                this.searchInput.addEventListener('input', () => this.handleSearch());
-                this.sortSelect.addEventListener('change', () => this.handleSort());
+                document.getElementById('taskForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addTask();
+                });
+
+                document.getElementById('searchInput').addEventListener('input', () => {
+                    this.renderTasks();
+                });
+
+                document.getElementById('sortSelect').addEventListener('change', () => {
+                    this.renderTasks();
+                });
             }
 
-            handleSubmit(e) {
-                e.preventDefault();
-                const taskText = this.taskInput.value.trim();
-                if (taskText) {
-                    this.addTask(taskText);
-                    this.taskInput.value = '';
-                }
-            }
+            addTask() {
+                const input = document.getElementById('taskInput');
+                const text = input.value.trim();
+                
+                if (!text) return;
 
-            addTask(text) {
                 const task = {
                     id: Date.now(),
                     text: text,
                     completed: false,
                     createdAt: new Date().toISOString()
                 };
+
                 this.tasks.unshift(task);
                 this.saveTasks();
-                this.applyFiltersAndSort();
-                this.render();
+                this.renderTasks();
+                this.updateStats();
+                input.value = '';
             }
 
             toggleTask(id) {
                 const task = this.tasks.find(t => t.id === id);
                 if (task) {
                     task.completed = !task.completed;
+                    task.completedAt = task.completed ? new Date().toISOString() : null;
                     this.saveTasks();
-                    this.applyFiltersAndSort();
-                    this.render();
+                    this.renderTasks();
+                    this.updateStats();
                 }
             }
 
@@ -397,50 +401,95 @@
                 if (confirm('Czy na pewno chcesz usunąć to zadanie?')) {
                     this.tasks = this.tasks.filter(t => t.id !== id);
                     this.saveTasks();
-                    this.applyFiltersAndSort();
-                    this.render();
+                    this.renderTasks();
+                    this.updateStats();
                 }
             }
 
-            handleSearch() {
-                this.applyFiltersAndSort();
-                this.render();
+            getFilteredAndSortedTasks() {
+                let filteredTasks = [...this.tasks];
+
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                if (searchTerm) {
+                    filteredTasks = filteredTasks.filter(task => 
+                        task.text.toLowerCase().includes(searchTerm)
+                    );
+                }
+
+                const sortBy = document.getElementById('sortSelect').value;
+                switch (sortBy) {
+                    case 'oldest':
+                        filteredTasks.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+                        break;
+                    case 'alphabetical':
+                        filteredTasks.sort((a, b) => a.text.localeCompare(b.text, 'pl'));
+                        break;
+                    case 'completed':
+                        filteredTasks.sort((a, b) => b.completed - a.completed);
+                        break;
+                    case 'pending':
+                        filteredTasks.sort((a, b) => a.completed - b.completed);
+                        break;
+                    default: // newest
+                        filteredTasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                }
+
+                return filteredTasks;
             }
 
-            handleSort() {
-                this.applyFiltersAndSort();
-                this.render();
-            }
+            renderTasks() {
+                const container = document.getElementById('tasksContainer');
+                const emptyState = document.getElementById('emptyState');
+                const filteredTasks = this.getFilteredAndSortedTasks();
 
-            applyFiltersAndSort() {
-                const searchTerm = this.searchInput.value.toLowerCase().trim();
-                const sortType = this.sortSelect.value;
+                if (filteredTasks.length === 0) {
+                    container.innerHTML = '';
+                    container.appendChild(emptyState);
+                    return;
+                }
 
-                this.filteredTasks = this.tasks.filter(task =>
-                    task.text.toLowerCase().includes(searchTerm)
-                );
-
-                this.filteredTasks.sort((a, b) => {
-                    switch (sortType) {
-                        case 'oldest':
-                            return new Date(a.createdAt) - new Date(b.createdAt);
-                        case 'alphabetical':
-                            return a.text.localeCompare(b.text, 'pl');
-                        case 'completed':
-                            if (a.completed === b.completed) {
-                                return new Date(b.createdAt) - new Date(a.createdAt);
-                            }
-                            return a.completed ? 1 : -1;
-                        case 'newest':
-                        default:
-                            return new Date(b.createdAt) - new Date(a.createdAt);
-                    }
+                container.innerHTML = '';
+                
+                filteredTasks.forEach(task => {
+                    const taskElement = this.createTaskElement(task);
+                    container.appendChild(taskElement);
                 });
             }
 
-            render() {
-                this.updateStats();
-                this.renderTasks();
+            createTaskElement(task) {
+                const div = document.createElement('div');
+                div.className = `task-item ${task.completed ? 'completed' : ''}`;
+
+                const date = new Date(task.createdAt).toLocaleDateString('pl-PL', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                div.innerHTML = `
+                    <div class="task-content">
+                        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+                        <div>
+                            <div class="task-text ${task.completed ? 'completed' : ''}">${task.text}</div>
+                            <div class="task-date">Utworzono: ${date}</div>
+                        </div>
+                    </div>
+                    <div class="task-actions">
+                        <button class="btn btn-danger btn-small delete-btn">Usuń</button>
+                    </div>
+                `;
+
+                div.querySelector('.task-checkbox').addEventListener('change', () => {
+                    this.toggleTask(task.id);
+                });
+
+                div.querySelector('.delete-btn').addEventListener('click', () => {
+                    this.deleteTask(task.id);
+                });
+
+                return div;
             }
 
             updateStats() {
@@ -448,60 +497,9 @@
                 const completed = this.tasks.filter(t => t.completed).length;
                 const pending = total - completed;
 
-                this.totalTasksElement.textContent = total;
-                this.completedTasksElement.textContent = completed;
-                this.pendingTasksElement.textContent = pending;
-            }
-
-            renderTasks() {
-                if (this.filteredTasks.length === 0) {
-                    this.emptyState.style.display = 'block';
-                    this.tasksList.innerHTML = '';
-                    this.tasksList.appendChild(this.emptyState);
-                    return;
-                }
-
-                this.emptyState.style.display = 'none';
-                this.tasksList.innerHTML = '';
-
-                this.filteredTasks.forEach(task => {
-                    const taskElement = this.createTaskElement(task);
-                    this.tasksList.appendChild(taskElement);
-                });
-            }
-
-            createTaskElement(task) {
-                const taskItem = document.createElement('div');
-                taskItem.className = `task-item ${task.completed ? 'completed' : ''}`;
-
-                const date = new Date(task.createdAt).toLocaleString('pl-PL', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-
-                taskItem.innerHTML = `
-                    <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
-                    <span class="task-text ${task.completed ? 'completed' : ''}">${this.escapeHtml(task.text)}</span>
-                    <span class="task-date">${date}</span>
-                    <button class="btn-delete">🗑️ Usuń</button>
-                `;
-
-                const checkbox = taskItem.querySelector('.task-checkbox');
-                checkbox.addEventListener('change', () => this.toggleTask(task.id));
-
-                const deleteBtn = taskItem.querySelector('.btn-delete');
-                deleteBtn.addEventListener('click', () => this.deleteTask(task.id));
-
-                return taskItem;
-            }
-
-            escapeHtml(text) {
-                const div = document.createElement('div');
-                div.textContent = text;
-                return div.innerHTML;
+                document.getElementById('totalTasks').textContent = total;
+                document.getElementById('completedTasks').textContent = completed;
+                document.getElementById('pendingTasks').textContent = pending;
             }
 
             saveTasks() {
