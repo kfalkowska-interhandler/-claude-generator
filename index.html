@@ -23,12 +23,12 @@
             margin: 0 auto;
             background: white;
             border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
         }
 
         .header {
-            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
             padding: 30px;
             text-align: center;
@@ -45,15 +45,16 @@
             font-size: 1.1rem;
         }
 
-        .task-input-section {
+        .task-form {
             padding: 30px;
             border-bottom: 1px solid #eee;
         }
 
-        .input-group {
+        .form-group {
             display: flex;
             gap: 15px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .task-input {
@@ -61,27 +62,29 @@
             padding: 15px;
             border: 2px solid #e1e5e9;
             border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            min-width: 200px;
         }
 
         .task-input:focus {
             outline: none;
             border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
         }
 
         .btn {
             padding: 15px 25px;
             border: none;
             border-radius: 10px;
-            font-size: 1rem;
+            font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
         }
 
         .btn-primary {
-            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
         }
 
@@ -91,6 +94,7 @@
         }
 
         .controls {
+            padding: 0 30px 20px;
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
@@ -99,55 +103,54 @@
 
         .search-input {
             flex: 1;
-            min-width: 200px;
             padding: 12px;
             border: 2px solid #e1e5e9;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 14px;
+            min-width: 200px;
         }
 
         .sort-select {
             padding: 12px;
             border: 2px solid #e1e5e9;
             border-radius: 8px;
-            font-size: 0.95rem;
-            background: white;
+            font-size: 14px;
             cursor: pointer;
         }
 
-        .tasks-section {
-            padding: 30px;
-        }
-
-        .task-list {
-            list-style: none;
+        .tasks-container {
+            padding: 0 30px 30px;
+            min-height: 200px;
         }
 
         .task-item {
             background: #f8f9fa;
+            border-left: 4px solid #4facfe;
             margin-bottom: 15px;
             padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #4facfe;
+            border-radius: 0 10px 10px 0;
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: space-between;
             transition: all 0.3s ease;
+            animation: slideIn 0.5s ease;
         }
 
         .task-item:hover {
             transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .task-item.completed {
-            opacity: 0.7;
             border-left-color: #28a745;
+            background: #e8f5e8;
         }
 
-        .task-item.completed .task-text {
-            text-decoration: line-through;
-            color: #6c757d;
+        .task-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .task-checkbox {
@@ -157,98 +160,134 @@
         }
 
         .task-text {
-            flex: 1;
-            font-size: 1.1rem;
+            font-size: 16px;
             color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .task-text.completed {
+            text-decoration: line-through;
+            color: #888;
+            opacity: 0.7;
         }
 
         .task-date {
-            font-size: 0.9rem;
-            color: #6c757d;
-            margin-right: 10px;
+            font-size: 12px;
+            color: #666;
+            margin-left: 15px;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .btn-delete {
-            background: linear-gradient(45deg, #ff6b6b, #ff5252);
+            background: #dc3545;
             color: white;
-            padding: 8px 15px;
-            font-size: 0.9rem;
         }
 
         .btn-delete:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            background: #c82333;
+            transform: scale(1.05);
         }
 
         .empty-state {
             text-align: center;
             padding: 50px 20px;
-            color: #6c757d;
+            color: #666;
         }
 
         .empty-state h3 {
-            font-size: 1.5rem;
+            font-size: 24px;
             margin-bottom: 10px;
-            color: #495057;
         }
 
         .stats {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #e9ecef;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: #495057;
+            justify-content: space-around;
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4facfe;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
             .container {
-                margin: 10px;
-                border-radius: 10px;
-            }
-
-            .header {
-                padding: 20px;
+                margin: 0 10px;
             }
 
             .header h1 {
                 font-size: 2rem;
             }
 
-            .task-input-section {
-                padding: 20px;
+            .form-group {
+                flex-direction: column;
             }
 
-            .input-group {
-                flex-direction: column;
+            .task-input {
+                min-width: auto;
             }
 
             .controls {
                 flex-direction: column;
-                align-items: stretch;
             }
 
             .search-input {
                 min-width: auto;
+                width: 100%;
             }
 
             .task-item {
-                padding: 15px;
-                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
             }
 
-            .task-date {
-                order: 3;
-                flex-basis: 100%;
-                margin-top: 10px;
-                margin-right: 0;
+            .task-content {
+                width: 100%;
             }
 
             .stats {
                 flex-direction: column;
-                gap: 5px;
+                gap: 15px;
             }
         }
     </style>
@@ -257,45 +296,55 @@
     <div class="container">
         <div class="header">
             <h1>Menedżer Zadań</h1>
-            <p>Organizuj swoje zadania w prosty i efektywny sposób</p>
+            <p>Organizuj swoje zadania w prosty sposób</p>
         </div>
 
-        <div class="task-input-section">
-            <div class="input-group">
-                <input type="text" class="task-input" id="taskInput" placeholder="Wprowadź nowe zadanie...">
-                <button class="btn btn-primary" onclick="addTask()">Dodaj zadanie</button>
-            </div>
-            
-            <div class="controls">
-                <input type="text" class="search-input" id="searchInput" placeholder="Szukaj zadań...">
-                <select class="sort-select" id="sortSelect">
-                    <option value="newest">Najnowsze</option>
-                    <option value="oldest">Najstarsze</option>
-                    <option value="alphabetical">Alfabetycznie</option>
-                    <option value="completed">Wykonane na końcu</option>
-                </select>
+        <div class="task-form">
+            <div class="form-group">
+                <input type="text" id="taskInput" class="task-input" placeholder="Wpisz nowe zadanie...">
+                <button onclick="addTask()" class="btn btn-primary">Dodaj zadanie</button>
             </div>
         </div>
 
-        <div class="tasks-section">
-            <div class="stats" id="stats">
-                <span>Wszystkie zadania: <strong>0</strong></span>
-                <span>Wykonane: <strong>0</strong></span>
-                <span>Do zrobienia: <strong>0</strong></span>
-            </div>
-            
-            <ul class="task-list" id="taskList">
-            </ul>
-            
-            <div class="empty-state" id="emptyState">
+        <div class="controls">
+            <input type="text" id="searchInput" class="search-input" placeholder="Szukaj zadań..." onkeyup="searchTasks()">
+            <select id="sortSelect" class="sort-select" onchange="sortTasks()">
+                <option value="date-desc">Najnowsze pierwsze</option>
+                <option value="date-asc">Najstarsze pierwsze</option>
+                <option value="alpha-asc">Alfabetycznie A-Z</option>
+                <option value="alpha-desc">Alfabetycznie Z-A</option>
+                <option value="completed">Ukończone pierwsze</option>
+                <option value="pending">Oczekujące pierwsze</option>
+            </select>
+        </div>
+
+        <div class="tasks-container" id="tasksContainer">
+            <div class="empty-state">
                 <h3>Brak zadań</h3>
-                <p>Dodaj swoje pierwsze zadanie, aby zacząć!</p>
+                <p>Dodaj swoje pierwsze zadanie powyżej</p>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalTasks">0</div>
+                <div class="stat-label">Wszystkie</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="completedTasks">0</div>
+                <div class="stat-label">Ukończone</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="pendingTasks">0</div>
+                <div class="stat-label">Oczekujące</div>
             </div>
         </div>
     </div>
 
     <script>
         let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        let currentFilter = '';
+        let currentSort = 'date-desc';
 
         function saveTasks() {
             localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -304,136 +353,137 @@
         function addTask() {
             const taskInput = document.getElementById('taskInput');
             const taskText = taskInput.value.trim();
-            
+
             if (taskText === '') {
-                alert('Proszę wprowadzić tekst zadania');
+                alert('Proszę wpisać zadanie');
                 return;
             }
-            
+
             const task = {
                 id: Date.now(),
                 text: taskText,
                 completed: false,
                 createdAt: new Date().toISOString()
             };
-            
-            tasks.push(task);
+
+            tasks.unshift(task);
             taskInput.value = '';
             saveTasks();
             renderTasks();
+            updateStats();
         }
 
-        function deleteTask(taskId) {
+        function deleteTask(id) {
             if (confirm('Czy na pewno chcesz usunąć to zadanie?')) {
-                tasks = tasks.filter(task => task.id !== taskId);
+                tasks = tasks.filter(task => task.id !== id);
                 saveTasks();
                 renderTasks();
+                updateStats();
             }
         }
 
-        function toggleTask(taskId) {
-            const task = tasks.find(task => task.id === taskId);
+        function toggleTask(id) {
+            const task = tasks.find(task => task.id === id);
             if (task) {
                 task.completed = !task.completed;
                 saveTasks();
                 renderTasks();
+                updateStats();
             }
         }
 
-        function filterTasks() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            return tasks.filter(task => 
-                task.text.toLowerCase().includes(searchTerm)
-            );
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('pl-PL') + ' ' + date.toLocaleTimeString('pl-PL', {hour: '2-digit', minute: '2-digit'});
         }
 
-        function sortTasks(tasksToSort) {
-            const sortBy = document.getElementById('sortSelect').value;
-            const sortedTasks = [...tasksToSort];
+        function renderTasks() {
+            const container = document.getElementById('tasksContainer');
+            let filteredTasks = tasks;
+
+            if (currentFilter) {
+                filteredTasks = tasks.filter(task => 
+                    task.text.toLowerCase().includes(currentFilter.toLowerCase())
+                );
+            }
+
+            filteredTasks = sortTasksArray(filteredTasks);
+
+            if (filteredTasks.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>${currentFilter ? 'Brak pasujących zadań' : 'Brak zadań'}</h3>
+                        <p>${currentFilter ? 'Spróbuj zmienić wyszukiwanie' : 'Dodaj swoje pierwsze zadanie powyżej'}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filteredTasks.map(task => `
+                <div class="task-item ${task.completed ? 'completed' : ''}">
+                    <div class="task-content">
+                        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask(${task.id})">
+                        <span class="task-text ${task.completed ? 'completed' : ''}">${task.text}</span>
+                        <span class="task-date">${formatDate(task.createdAt)}</span>
+                    </div>
+                    <div class="task-actions">
+                        <button class="btn-small btn-delete" onclick="deleteTask(${task.id})">Usuń</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function sortTasksArray(tasksArray) {
+            const sortedTasks = [...tasksArray];
             
-            switch (sortBy) {
-                case 'newest':
-                    return sortedTasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                case 'oldest':
+            switch (currentSort) {
+                case 'date-asc':
                     return sortedTasks.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-                case 'alphabetical':
-                    return sortedTasks.sort((a, b) => a.text.localeCompare(b.text));
+                case 'date-desc':
+                    return sortedTasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                case 'alpha-asc':
+                    return sortedTasks.sort((a, b) => a.text.localeCompare(b.text, 'pl'));
+                case 'alpha-desc':
+                    return sortedTasks.sort((a, b) => b.text.localeCompare(a.text, 'pl'));
                 case 'completed':
+                    return sortedTasks.sort((a, b) => b.completed - a.completed);
+                case 'pending':
                     return sortedTasks.sort((a, b) => a.completed - b.completed);
                 default:
                     return sortedTasks;
             }
         }
 
+        function searchTasks() {
+            const searchInput = document.getElementById('searchInput');
+            currentFilter = searchInput.value;
+            renderTasks();
+        }
+
+        function sortTasks() {
+            const sortSelect = document.getElementById('sortSelect');
+            currentSort = sortSelect.value;
+            renderTasks();
+        }
+
         function updateStats() {
             const total = tasks.length;
             const completed = tasks.filter(task => task.completed).length;
-            const todo = total - completed;
-            
-            document.getElementById('stats').innerHTML = `
-                <span>Wszystkie zadania: <strong>${total}</strong></span>
-                <span>Wykonane: <strong>${completed}</strong></span>
-                <span>Do zrobienia: <strong>${todo}</strong></span>
-            `;
+            const pending = total - completed;
+
+            document.getElementById('totalTasks').textContent = total;
+            document.getElementById('completedTasks').textContent = completed;
+            document.getElementById('pendingTasks').textContent = pending;
         }
 
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('pl-PL', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        }
-
-        function renderTasks() {
-            const filteredTasks = filterTasks();
-            const sortedTasks = sortTasks(filteredTasks);
-            const taskList = document.getElementById('taskList');
-            const emptyState = document.getElementById('emptyState');
-            
-            updateStats();
-            
-            if (sortedTasks.length === 0) {
-                taskList.style.display = 'none';
-                emptyState.style.display = 'block';
-                return;
-            }
-            
-            taskList.style.display = 'block';
-            emptyState.style.display = 'none';
-            
-            taskList.innerHTML = sortedTasks.map(task => `
-                <li class="task-item ${task.completed ? 'completed' : ''}">
-                    <input 
-                        type="checkbox" 
-                        class="task-checkbox" 
-                        ${task.completed ? 'checked' : ''}
-                        onchange="toggleTask(${task.id})"
-                    >
-                    <span class="task-text">${task.text}</span>
-                    <span class="task-date">${formatDate(task.createdAt)}</span>
-                    <button class="btn btn-delete" onclick="deleteTask(${task.id})">
-                        Usuń
-                    </button>
-                </li>
-            `).join('');
-        }
-
-        // Event listeners
         document.getElementById('taskInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 addTask();
             }
         });
 
-        document.getElementById('searchInput').addEventListener('input', renderTasks);
-        document.getElementById('sortSelect').addEventListener('change', renderTasks);
-
-        // Initial render
         renderTasks();
+        updateStats();
     </script>
 
 <script>
